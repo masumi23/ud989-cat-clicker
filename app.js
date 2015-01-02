@@ -1,19 +1,63 @@
-var catImageElem1 = document.getElementById('cat1');
-var catImageElem2 = document.getElementById('cat2');
-var countElem1 = document.getElementById('count1');
-var countElem2 = document.getElementById('count2');
-var count1 = 0;
-var count2 = 0;
+var catList = [
+{
+	name:'caty',
+	link: 'cat1.jpg',
+	count: 0
+},
+{
+	name:'precious',
+	link: 'cat2.jpg',
+	count: 0
+},
+{
+	name:'squishy',
+	link: 'cat1.jpg',
+	count: 0
+},
+{
+	name:'stretchy',
+	link: 'cat1.jpg',
+	count: 0
+},
+{
+	name:'silly',
+	link: 'cat1.jpg',
+	count: 0
+},
+{
+	name:'bob',
+	link: 'cat1.jpg',
+	count: 0
+}
+];
 
-function plusOne1() {
-	count1++;
-	countElem1.textContent = count1;
+var currentCat;
+var catListElem = document.getElementById('list-o-cats');
+var catNameElem = document.getElementById('cat-name');
+var catImgElem = document.getElementById('cat-img');
+var catCountElem = document.getElementById('cat-count');
+
+for (var i = 0; i < catList.length; i++) {
+	var cat = catList[i];
+	var liElem = document.createElement('li');
+	liElem.textContent = cat.name;
+	catListElem.appendChild(liElem);
+
+	liElem.addEventListener('click', (function(catNum){
+		return function() {
+			var cat = catList[catNum];
+			currentCat = cat;
+			catNameElem.textContent = cat.name;
+			catImgElem.src = cat.link;
+			catCountElem.textContent = cat.count;
+		};
+	})(i), false);
 }
 
-function plusOne2() {
-	count2++;
-	countElem2.textContent = count2;
+
+function plusOne() {
+	currentCat.count++;
+	catCountElem.textContent = currentCat.count;
 }
 
-catImageElem1.addEventListener('click', plusOne1, false);
-catImageElem2.addEventListener('click', plusOne2, false);
+catImgElem.addEventListener('click', plusOne, false);
