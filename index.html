@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="main">
+	<div class="main" id="main">
 		<h1>CAT CLICKER PREMIUM</h1>
 
 		<ul id="list-o-cats"></ul>
@@ -16,6 +16,17 @@
 			<img src="" id="cat-img">
 			<p>Click count</p>
 			<div id="cat-count"></div>
+		</div>
+
+		<div class="admin">
+			<button id="onButton">Admin Mode</button>
+			<form action="" id="adminForm">
+				Name <input type="text">
+				</br>ImgURL <input type="text">
+				</br>#clicks <input type="text">
+				<button type="submit" class="save">save</button>
+				<button class="cancel">cancel</button>
+			</form>
 		</div>
 
 	</div>

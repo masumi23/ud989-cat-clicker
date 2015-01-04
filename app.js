@@ -33,7 +33,8 @@ var model = {
 		}
 	],
 
-	currentCat: null
+	currentCat: null,
+	adminEnabled: false
 };
 
 var octopus = {
@@ -65,7 +66,17 @@ var octopus = {
 	plusOne: function() {
 		model.currentCat.count++;
 		view.renderCat();
-	}
+	},
+
+	getAdminStatus: function () {
+		return model.adminEnabled;
+	},
+
+	setAdminStatus: function (enabled) {
+		model.adminEnabled = enabled;
+		view.renderCat();
+	},
+
 };
 
 var view = {
@@ -77,10 +88,17 @@ var view = {
 		this.catNameElem = document.getElementById('cat-name');
 		this.catImgElem = document.getElementById('cat-img');
 		this.catCountElem = document.getElementById('cat-count');
+		this.adminOn = document.getElementById('onButton');
+		this.formElem = document.getElementById('adminForm');
 		
-		//renders the catlist and the current cat
+		//renders the catlist, the current cat, and admin mode
 		this.renderCatList();
 		this.renderCat();
+
+		//add event listeners
+		this.adminOn.addEventListener('click', function() {
+			octopus.setAdminStatus(true);
+		}, false);
 	},
 
 	renderCatList: function() {
@@ -120,6 +138,15 @@ var view = {
 		
 		//Event listener on the cat's picture
 		this.catImgElem.addEventListener('click', octopus.plusOne, false);
+		
+		//render admin view
+		if (!octopus.getAdminStatus()) {
+			this.formElem.style.display="none";
+		} else {
+			this.formElem.style.display="block";
+		}
+
+
 	}
 };
 
