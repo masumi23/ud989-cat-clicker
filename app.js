@@ -77,6 +77,15 @@ var octopus = {
 		view.renderCat();
 	},
 
+	populateModel: function () {
+		model.currentCat.name = view.nameElem.value;
+		model.currentCat.link = view.imgURLElem.value;
+		model.currentCat.count = view.clicksElem.value;
+		model.adminEnabled = false;
+		view.renderCat();
+		view.renderCatList();
+	}
+
 };
 
 var view = {
@@ -90,15 +99,30 @@ var view = {
 		this.catCountElem = document.getElementById('cat-count');
 		this.adminOn = document.getElementById('onButton');
 		this.formElem = document.getElementById('adminForm');
+		this.nameElem = document.getElementById('name');
+		this.imgURLElem = document.getElementById('imgURL');
+		this.clicksElem = document.getElementById('clicks');
+		this.adminCancel = document.getElementById('cancel');
 		
 		//renders the catlist, the current cat, and admin mode
 		this.renderCatList();
 		this.renderCat();
 
 		//add event listeners
+		//If Admin button is pushed
 		this.adminOn.addEventListener('click', function() {
 			octopus.setAdminStatus(true);
 		}, false);
+		//if cancel is pushed
+		this.adminCancel.addEventListener('click', function () {
+			octopus.setAdminStatus(false);
+		}, false);
+		//if save is pushed
+		this.formElem.addEventListener('submit', function(e) {
+			octopus.populateModel();
+			e.preventDefault();
+		}, false);
+
 	},
 
 	renderCatList: function() {
@@ -144,8 +168,10 @@ var view = {
 			this.formElem.style.display="none";
 		} else {
 			this.formElem.style.display="block";
+			this.nameElem.value=cat.name;
+			this.imgURLElem.value=cat.link;
+			this.clicksElem.value=cat.count;
 		}
-
 
 	}
 };
